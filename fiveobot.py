@@ -8,7 +8,7 @@ import datetime, time, tweepy, creds
 
 def check_time():
     now = datetime.datetime.today()
-    return now.minute == 6
+    return now.minute == 0
 
 def tweet_out(phrase):
     # print("I would tweet now, if I were able.")
@@ -25,7 +25,7 @@ def find_city():
     pass
 
 def main():
-    phrase = "Hello World!"
+    phrase = "It's five o'clock somewhere!"
     while True:
         if check_time():
             tweet_out(phrase)
