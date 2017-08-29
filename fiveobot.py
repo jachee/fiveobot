@@ -7,7 +7,7 @@ or so.
 import datetime, time, tweepy, creds
 
 def check_time():
-    now = datetime.datetime.today()
+    now = datetime.datetime.utcnow()
     return now.minute == 0
 
 def tweet_out(phrase):
@@ -18,15 +18,30 @@ def tweet_out(phrase):
     api.update_status(phrase)
 
 
-def find_timezone():
-    pass
+def tz_phrase():
+    gmt = datetime.datetime.utcnow()
+    if gmt.hour >= 0 and gmt.hour <= 5
+        offset = 17 - gmt.hour - 24
+        if offset >= 0:
+            offstr = ''.join(['+', str(offset)])
+        else:
+            offstr = str(offset)
+    else
+        offset = 17 - gmt.hour
+        if offset >= 0:
+            offstr = ''.join(['+', str(offset)])
+        else:
+            offstr = str(offset)
+
+
+    return "It's five o'clock somewhere! Currently UTC %s" % offstr
 
 def find_city():
     pass
 
 def main():
-    phrase = "It's five o'clock somewhere!"
     while True:
+        phrase = tz_phrase()
         if check_time():
             tweet_out(phrase)
             time.sleep(60)
