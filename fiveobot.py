@@ -20,13 +20,13 @@ def tweet_out(phrase):
 
 def tz_phrase():
     gmt = datetime.datetime.utcnow()
-    if gmt.hour >= 0 and gmt.hour <= 5
+    if gmt.hour >= 0 and gmt.hour <= 5:
         offset = 17 - gmt.hour - 24
         if offset >= 0:
             offstr = ''.join(['+', str(offset)])
         else:
             offstr = str(offset)
-    else
+    else:
         offset = 17 - gmt.hour
         if offset >= 0:
             offstr = ''.join(['+', str(offset)])
