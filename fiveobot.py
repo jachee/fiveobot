@@ -15,6 +15,7 @@ def tweet_out(phrase):
     auth = tweepy.OAuthHandler(creds.consumer_key, creds.consumer_secret)
     auth.set_access_token(creds.access_token, creds.access_token_secret)
     api = tweepy.API(auth)
+    print(phrase)
     api.update_status(phrase)
 
 
@@ -41,8 +42,8 @@ def find_city():
 
 def main():
     while True:
-        phrase = tz_phrase()
         if check_time():
+            phrase = tz_phrase()
             tweet_out(phrase)
             time.sleep(60)
 
