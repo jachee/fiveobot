@@ -45,7 +45,7 @@ def main():
         if check_time():
             phrase = tz_phrase()
             tweet_out(phrase)
-        time.sleep(55)
+        time.sleep(60)
 
 
 
