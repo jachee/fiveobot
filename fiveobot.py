@@ -65,7 +65,7 @@ def main():
             print(city)
             phrase = phrase + "For example: %s, %s!" % city
             tweet_out(phrase)
-            time.sleep(60)
+        time.sleep(60)
 
 
 
