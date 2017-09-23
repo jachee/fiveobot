@@ -102,3 +102,6 @@ ENV/
 
 # credentials
 creds.py
+
+# Data CSV's. Using the sqlite3 instead.
+*.csv
