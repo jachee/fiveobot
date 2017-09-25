@@ -19,7 +19,7 @@ def tweet_out(phrase):
     auth = tweepy.OAuthHandler(creds.consumer_key, creds.consumer_secret)
     auth.set_access_token(creds.access_token, creds.access_token_secret)
     api = tweepy.API(auth)
-    print(phrase)
+    print("Tweeting out: %s " % phrase)
     api.update_status(phrase)
 
 def tz_offset():
@@ -32,10 +32,13 @@ def tz_offset():
 
 def find_city(zones, cur):
     zone = random.choice(zones)
+    print("Selected Zone: ", zone)
     query = 'SELECT "ASCII Name", "Country" FROM  geonames WHERE Timezone=?'
     cityobj = cur.execute(query, (zone,))
     cities = cityobj.fetchall()
-    return random.choice(cities)
+    city = random.choice(cities)
+    print("Selected City: ", city)
+    return city
 
 def find_zones(offset, cur):
     ''' Finds the Region/City style name(s) that match a given timezone
@@ -51,6 +54,7 @@ def find_zones(offset, cur):
     zones = []
     for row in zoneobj.fetchall():
         zones.append(row[0])
+    print("Timezone List: ", zones)
     return zones
 
 def main():
