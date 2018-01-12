@@ -15,6 +15,9 @@ import tweepy
 import creds
 import sqlite3
 import random
+import os
+
+myzone = os.environ['TZ']
 
 
 def check_time():
@@ -64,9 +67,25 @@ def find_zones(offset, cur):
     zones = []
     for row in zoneobj.fetchall():
         zones.append(row[0])
-    print("Timezone List: ", zones)
+    print("Full zone  List: ", zones)
     return zones
 
+def validate_zones(zonelist):
+    ''' Takes a list, returns a list.'''
+    goodzones = []
+    badzones = []
+    for zone in zonelist:
+        os.environ['TZ'] = zone
+        time.tzset()
+        if time.localtime().tm_hour == 17:
+            goodzones.append(zone)
+        else:
+            badzones.append(zone)
+
+    print("Bad Zones: ", badzones)
+    print("Good Zones: ", goodzones)
+    
+    return goodzones
 
 def main():
     conn = sqlite3.connect('tzdb.sqlite3')
@@ -75,12 +94,13 @@ def main():
         if check_time():
             phrase = "It's five o'clock somewhere! "
             offset = tz_offset()
-            zones = find_zones(offset, cur)
+            zones = validate_zones(find_zones(offset, cur))
             city = find_city(zones, cur)
             print(city)
             phrase = phrase + "For example: %s, %s!" % city
             tweet_out(phrase)
         time.sleep(60)
+        os.environ['TZ'] = myzone
 
 
 if __name__ == '__main__':
